@@ -9,3 +9,5 @@ add_executable(concurrent_queue concurrent_queue.cpp)
 target_link_libraries(concurrent_queue pthread)
 
 add_executable(stream_median stream_median.cpp)
+
+add_executable(kmp kmp.cpp)
