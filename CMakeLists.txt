@@ -11,3 +11,5 @@ target_link_libraries(concurrent_queue pthread)
 add_executable(stream_median stream_median.cpp)
 
 add_executable(kmp kmp.cpp)
+
+add_executable(qsort qsort.cpp)
