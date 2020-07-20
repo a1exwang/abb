@@ -13,3 +13,5 @@ add_executable(stream_median stream_median.cpp)
 add_executable(kmp kmp.cpp)
 
 add_executable(qsort qsort.cpp)
+
+add_executable(comb comb.cpp)
