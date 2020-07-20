@@ -38,32 +38,23 @@ class Combination {
     } else {
       auto &lastResults = resultByCount[count-1];
       for (const std::vector<int> &lastResult : lastResults) {
-        for (auto pivot : complement(lastResult)) {
+        int startIndex = 0;
+        if (lastResult.empty()) {
+          startIndex = 0;
+        } else {
+          startIndex = lastResult.back() + 1;
+        }
+        for (int j = startIndex; j < n; j++) {
           auto &newResult = resultByCount[count].emplace_back(lastResult);
-          newResult.push_back(pivot);
+          newResult.push_back(j);
         }
       }
     }
   }
 
-  // nums increasing order
-  std::vector<int> complement(const std::vector<int> &nums) const {
-    int start = 0;
-    if (nums.empty()) {
-      start = 0;
-    } else {
-      start = nums.back()+1;
-    }
-    std::vector<int> result(n - start);
-    std::iota(result.begin(), result.end(), start);
-    return result;
-  }
-
  public:
   int n;
   std::vector<std::vector<std::vector<int>>> resultByCount;
-
-  size_t complementCalled = 0;
 };
 
 class Arrangement {
@@ -100,6 +91,8 @@ class Arrangement {
     if (count == 0) {
       resultByCount[count].emplace_back();
     } else {
+      // T(n) = T(n-1) * n
+      // T(n) = O(n!)
       auto &lastResults = resultByCount[count-1];
       for (const std::vector<int> &lastResult : lastResults) {
         for (auto pivot : complement(lastResult)) {
@@ -110,19 +103,25 @@ class Arrangement {
     }
   }
 
+  // O(n)
   std::vector<int> complement(std::vector<int> nums) const {
-    std::sort(nums.begin(), nums.end());
-    std::vector<int> ret;
-    std::set_difference(all.begin(), all.end(), nums.begin(), nums.end(), std::back_inserter(ret));
-    return ret;
+    std::vector<bool> found(n, false);
+    for (auto n : nums) {
+      found[n] = true;
+    }
+    std::vector<int> result;
+    for (int i = 0; i < n; i++) {
+      if (!found[i]) {
+        result.push_back(i);
+      }
+    }
+    return result;
   }
 
  public:
   int n;
   std::vector<int> all;
   std::vector<std::vector<std::vector<int>>> resultByCount;
-
-  size_t complementCalled = 0;
 };
 
 
@@ -131,12 +130,14 @@ int main() {
   int n = 15;
   int m = 7;
   auto t0 = std::chrono::high_resolution_clock::now();
+  // O(2^n)
   Combination combination(n);
   auto t1 = std::chrono::high_resolution_clock::now();
 //  combination.print();
   std::cout << "combination " << n << ": " << std::chrono::duration<double, std::milli>(t1 - t0).count() << "ms" << std::endl;
 
   auto t2 = std::chrono::high_resolution_clock::now();
+  // O(m!)
   Arrangement arrangement(m);
   auto t3 = std::chrono::high_resolution_clock::now();
 //  arrangement.print();
