@@ -3,7 +3,7 @@ project(abb)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(topsort topsort.cpp)
+add_executable(topsort graph/topsort.cpp)
 
 add_executable(concurrent_queue concurrent_queue.cpp)
 target_link_libraries(concurrent_queue pthread)
@@ -17,3 +17,5 @@ add_executable(qsort qsort.cpp)
 add_executable(comb comb.cpp)
 
 add_subdirectory(trees)
+
+add_subdirectory(graph)
