@@ -36,9 +36,7 @@ std::unordered_map<size_t, int64_t> dijkstra(
   std::priority_queue<size_t, std::vector<size_t>, Compare> pq(compare);
 
   // assume all distances >= 0
-  for (auto vertex : vertexes) {
-    pq.push(vertex);
-  }
+  pq.push(start_node_id);
 
   std::unordered_set<size_t> visited;
   while (!pq.empty() && distances[pq.top()] != InfDistance) {
