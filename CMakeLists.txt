@@ -12,10 +12,8 @@ add_executable(stream_median stream_median.cpp)
 
 add_executable(kmp kmp.cpp)
 
-add_executable(qsort qsort.cpp)
-
 add_executable(comb comb.cpp)
 
-add_subdirectory(trees)
-
 add_subdirectory(graph)
+add_subdirectory(sort)
+add_subdirectory(trees)
